@@ -22,27 +22,20 @@ void TSpisok::AddElement(TElement* someElement)
 
 void TSpisok::DeleteElement(TElement* someElement)
 {
-	if (someElement == First && someElement == Last)
+	if (someElement == First)
 	{
-		First = nullptr;
-		Last = nullptr;
+		First = someElement->Next;
 	}
 	else {
-		if (someElement == First)
-		{
-			First = someElement->Next;
-		}
-		else {
-			someElement->Previous->Next = someElement->Next;
-		}		
-		if (someElement == Last)
-		{
-			Last = someElement->Previous;
-		}
-		else
-		{
-			someElement->Next->Previous = someElement->Previous;
-		}
+		someElement->Previous->Next = someElement->Next;
+	}		
+	if (someElement == Last)
+	{
+		Last = someElement->Previous;
+	}
+	else
+	{
+		someElement->Next->Previous = someElement->Previous;
 	}	
 	delete someElement;
 }
