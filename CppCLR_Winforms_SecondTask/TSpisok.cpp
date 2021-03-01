@@ -4,8 +4,20 @@
 void TSpisok::AddElement(TElement* someElement)
 {
 	someElement->Previous = Last;
-	someElement->Next = nullptr;
-	Last = someElement;
+	someElement->Next = nullptr;	
+	if (First == nullptr)
+	{
+		Last = someElement;
+		First = Last;
+		First->Previous = nullptr;
+		First->Next = nullptr;
+		Last->Previous = nullptr;
+		Last->Next = nullptr;
+	}
+	else {
+		Last->Next = someElement;
+		Last = someElement;
+	}
 }
 
 void TSpisok::DeleteElement(TElement* someElement)
@@ -38,6 +50,7 @@ void TSpisok::DeleteElement(TElement* someElement)
 
 void TSpisok::Output(bool direct, System::Windows::Forms::ListBox^ list)
 {
+	list->Items->Clear();
 	if (direct)
 	{
 		Current = First;
@@ -75,7 +88,29 @@ void TSpisok::Output(bool direct, System::Windows::Forms::ListBox^ list)
 			Current = Current->Previous;
 		}
 	}
-	list->Update();
+}
+
+void TSpisok::Sum(System::Windows::Forms::TextBox^ textNumber, System::Windows::Forms::TextBox^ textString)
+{
+	int sum = 0;
+	std::string str = "";
+	Current = First;
+	while (Current != nullptr)
+	{
+		if (TNumber* number = dynamic_cast<TNumber*>(Current))
+		{
+			sum += number->PSomeNumber;
+		}
+		else if (TString* s = dynamic_cast<TString*>(Current))
+		{
+			str += s->PSomeString + ' ';
+		}
+		Current = Current->Next;
+	}
+	System::String^ finalStr = gcnew System::String(str.c_str());
+	textString->Text = finalStr;
+	System::String^ finalNumber = gcnew System::String((std::to_string(sum)).c_str());
+	textNumber->Text = finalNumber;
 }
 
 TSpisok::TSpisok()
@@ -87,10 +122,12 @@ TSpisok::TSpisok()
 
 TSpisok::~TSpisok()
 {
-	Current = First;
-	while (Current != nullptr)
+	if (First != nullptr)
 	{
-		DeleteElement(Current);
-		Current = Current->Next;
+		while (First->Next != nullptr)
+		{
+			DeleteElement(First->Next);
+		}
+		DeleteElement(First);
 	}
 }

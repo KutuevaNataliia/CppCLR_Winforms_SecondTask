@@ -14,6 +14,7 @@ public:
 	void AddElement(TElement* someElement);
 	void DeleteElement(TElement* someElement);
 	void Output(bool direct, System::Windows::Forms::ListBox^ list);
+	void Sum(System::Windows::Forms::TextBox^ textNumber, System::Windows::Forms::TextBox^ textString);
 	TSpisok();
 	~TSpisok();
 };

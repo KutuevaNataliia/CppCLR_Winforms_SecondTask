@@ -10,7 +10,7 @@ private:
 public:
     std::string getSomeString();
     void setSomeString(std::string value);
-    _declspec(property(get = getSomeString, put = setSomeString)) int PSomeString;
+    _declspec(property(get = getSomeString, put = setSomeString)) std::string PSomeString;
     TString(std::string startString);
 };
 
