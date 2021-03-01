@@ -233,17 +233,24 @@ namespace CppCLRWinformsProjekt {
 		Marshal::FreeHGlobal(IntPtr((void*)chars));
 
 		TElement* newElement;
+		bool firstSymbolNumber = false;
 		std::string::const_iterator it = finalStr.begin();
-		while (it != finalStr.end() && std::isdigit(*it))
+		if ((*it) == '-' || std::isdigit(*it))
 		{
 			++it;
+			while (it != finalStr.end() && std::isdigit(*it))
+			{
+				++it;
+			}
+			if (!finalStr.empty() && it == finalStr.end())
+			{
+				TNumber* newNumber = new TNumber(std::stoi(finalStr));
+				newElement = newNumber;
+				firstSymbolNumber = true;
+			}
 		}
-		if (!finalStr.empty() && it == finalStr.end())
+		if (!firstSymbolNumber)
 		{
-			TNumber* newNumber = new TNumber(std::stoi(finalStr));
-			newElement = newNumber;
-		}
-		else {
 			TString* newString = new TString(finalStr);
 			newElement = newString;
 		}
@@ -280,6 +287,7 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 	MySpisok->DeleteElement(MySpisok->Current);
+	listBox1->Items->Remove(listBox1->SelectedItem);
 }
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
