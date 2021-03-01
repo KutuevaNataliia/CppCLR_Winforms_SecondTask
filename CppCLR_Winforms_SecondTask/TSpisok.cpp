@@ -31,18 +31,17 @@ void TSpisok::DeleteElement(TElement* someElement)
 		if (someElement == First)
 		{
 			First = someElement->Next;
-			someElement->Next->Previous = nullptr;
 		}
 		else {
 			someElement->Previous->Next = someElement->Next;
-			if (someElement == Last)
-			{
-				Last = someElement->Previous;
-			}
-			else
-			{
-				someElement->Next->Previous = someElement->Previous;
-			}
+		}		
+		if (someElement == Last)
+		{
+			Last = someElement->Previous;
+		}
+		else
+		{
+			someElement->Next->Previous = someElement->Previous;
 		}
 	}	
 	delete someElement;
