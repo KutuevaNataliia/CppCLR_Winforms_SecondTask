@@ -288,6 +288,7 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	MySpisok->DeleteElement(MySpisok->Current);
 	listBox1->Items->Remove(listBox1->SelectedItem);
+	MySpisok->Sum(textBox2, textBox3);
 }
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
