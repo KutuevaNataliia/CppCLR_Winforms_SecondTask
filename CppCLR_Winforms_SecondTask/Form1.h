@@ -256,6 +256,7 @@ namespace CppCLRWinformsProjekt {
 		}
 		MySpisok->AddElement(newElement);
 		textBox1->Text = "";
+		MySpisok->Sum(textBox2, textBox3);
 	}
 	private: System::Void radioButton1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
@@ -267,7 +268,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	else {
 		MySpisok->Output(false, listBox1);
 	}
-	MySpisok->Sum(textBox2, textBox3);
+	//MySpisok->Sum(textBox2, textBox3);
 }
 private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 	int step = listBox1->SelectedIndex;
